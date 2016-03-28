@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class lab7Spring16 {
-    
+    //**
     /************************ ACTIVITY 1: PRINTING METHODS ********************************/
     // this method takes a 1D array of integers and prints it
     public static void printArray(int[] myArray) {
