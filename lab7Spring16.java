@@ -7,46 +7,48 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class lab7Spring16 {
-    //**
+public class lab7Spring161 {
     /************************ ACTIVITY 1: PRINTING METHODS ********************************/
     // this method takes a 1D array of integers and prints it
     public static void printArray(int[] myArray) {
         // your code goes here
-    	for(int i=0; i < myArray.length; i++){
-    		
-    		System.out.print(myArray[i] + " ");
-    	}
-    	System.out.println("");
+        for(int i=0; i < myArray.length; i++){
+            
+            System.out.print(myArray[i] + " ");
+        }
+        System.out.println("");
     }
     
-    // this method takes a 2D array of integers 
+    // this method takes a 2D array of integers
     // and prints it row per row
     public static void printArray(int[][] myArray) {
         // your code goes here
-    	
-    		int[] newArray = new int[myArray.length];
-    		for(int i = 0;i < myArray.length; i++){
-    			newArray [i] = myArray[i][0];
-    		}
-    		printArray(newArray);
-    		
-    		for(int i = 0; i<myArray.length; i++){
-    			newArray [i] = myArray[i][1];
-    		}
-    		printArray(newArray);
-
+        
+        int[] newArray = new int[myArray.length];
+        for(int j =0; j<myArray[0].length;j++){
+            
+            
+            for(int i = 0;i < myArray.length; i++){
+                newArray [i] = myArray[i][j];
+                
+            }
+            printArray(newArray);
+        }
+        
+        
+        
+        
     }
     
     // this method takes a 1D array of strings and prints it
     // one string per line
     public static void printArray(String[] myArray) {
         // your code goes here
-    	for(int i = 0; i < myArray.length; i++){
-    		
-    		System.out.println(myArray[i] + " ");
-    	}
-    	System.out.println("");
+        for(int i = 0; i < myArray.length; i++){
+            
+            System.out.println(myArray[i] + " ");
+        }
+        System.out.println("");
     }
     
     /************************ ACTIVITY 2: SEQUENCE METHOD ***********************************/
@@ -55,81 +57,141 @@ public class lab7Spring16 {
     // Hint: this means that the first element of the array of strings will be seed
     public static void SayItOutLoud(String[] sequence, String seed) {
         // your code goes here
-    	sequence[0] = seed;
-    	int j = 0;
-    	for(int i =1; i < sequence.length;i++){
-    		seed = sequence[i-1];
-    		sequence[i]="";
-    		j = 0;
-    		while(j < seed.length()){
-    			
-    			char current = seed.charAt(j);
-    			int amount = 1;
-    		
-    			if(j < seed.length()- 1){
-    				while( j< seed.length() && seed.charAt(j + 1)== current){
-    				
-    					amount++;
-    					j++;
-    				}
-    			}
-  
-   			sequence[i] += String.valueOf(amount);
-   			sequence[i] += current;
-    			j++;
-    			
-    		}
-    	}
+        sequence[0] = seed;
+        int j = 0;
+        for(int i =1; i < sequence.length;i++){
+            seed = sequence[i-1];
+            sequence[i]="";
+            j = 0;
+            while(j < seed.length()){
+                
+                char current = seed.charAt(j);
+                int amount = 1;
+                
+                if(j < seed.length()- 1){
+                    while( j< seed.length() && seed.charAt(j + 1)== current){
+                        
+                        amount++;
+                        j++;
+                    }
+                }
+                
+                sequence[i] += String.valueOf(amount);
+                sequence[i] += current;
+                j++;
+                
+            }
+        }
     }
     
     /************************ ACTIVITY 3: MAGIC SQUARE METHOD ******************************/
-    // this method takes a 2D array of integers and 
+    // this method takes a 2D array of integers and
     // checks if it is a magic square 2D array
     // if it is, the method returns true
     // otherwise, it returns false
     public static boolean MagicSquare(int[][] table) {
         
         // your code goes here
+        int sum = sumRow(table,0);
+        // your code goes here
+        for(int i = 0; i<table.length;i++){
+            
+            if(!(sum == sumRow(table,i))){
+                return false;
+            }
+        }
+        for (int j = 0; j<table[0].length;j++){
+            
+            if(!(sum == sumColumn(table,j))){
+                return false;
+            }
+            
+        }
+        if(!(sum == sumDiagonal1(table))){
+            System.out.println(sum + ""+sumDiagonal1(table));
+            return false;
+        }
+        
+        if(!(sum == sumDiagonal2(table))){
+            return false;
+        }
+        
         
         return true;
+        
+        
     }
     
     // this method computes the sum of row number "row" of a given 2D array of integers
     public static int sumRow(int[][] table, int row) {
         int sum = 0;
         // your code goes here
+        for(int i =0; i<table.length;i++){
+            
+            sum += table[i][row];
+            
+        }
+        
         return sum;
-    }    
+    }
     
     // this method computes the sum of column number "column" of a given 2D array of integers
     // we will assume the table is not ragged
     public static int sumColumn(int[][] table, int column) {
         int sum = 0;
+        
+        for(int j = 0; j<table[0].length; j++){
+            
+            sum += table[column][j];
+            
+        }
         // your code goes here
         return sum;
     }
-
+    
     // this method computes the sum of numbers in the main diagonal of a given 2D array of integers
     public static int sumDiagonal1(int[][] table) {
         int sum = 0;
         // your code goes here
+        
+        int j = table[0].length-1;
+        
+        // your code goes here
+        for(int i = table.length-1; i>=0;i--){
+            
+            sum += table[i][j];
+            
+            j--;
+            
+            
+        }
         return sum;
-    }    
+    }
     
     // this method computes the sum of numbers in the secondary diagonal of a given 2D array of integers
     public static int sumDiagonal2(int[][] table) {
         int sum = 0;
+        int j = 0;
         // your code goes here
+        for(int i =0; i<table.length;i++){
+            
+            
+            sum += table[i][j];
+            
+            j++;
+            
+            
+        }
         return sum;
-    }    
+    }
     
     /************************ AUXILIARY METHOD, GIVEN TO YOU *******************************/
     // this method takes a 1D array of strings (each string represents an integer)
-    // and returns an array of integers of the same size 
+    // and returns an array of integers of the same size
     public static int[] toInteger(String[] array) {
         int[] result = new int[array.length];
         for (int i=0; i<array.length; i++) {
-            result[i] = Integer.parseInt(array[i]);   
+            result[i] = Integer.parseInt(array[i]);
         }
         return result;
     }
@@ -146,16 +208,16 @@ public class lab7Spring16 {
         JFrame frame = new JFrame("CS1401 Lab 7");
         JOptionPane.showMessageDialog(frame,
                                       "Welcome to Lab7, " + name + "!",
-                                     "CS1401 Lab 7",    
+                                      "CS1401 Lab 7",
                                       JOptionPane.INFORMATION_MESSAGE);
         
         /************ INTERACTION RELATED TO ACTIVITY 2 *************************************/
         String seed = JOptionPane.showInputDialog(frame, "What do you want to want to start the sequence from?",
-                                                 "CS1401 Lab 7",    
+                                                  "CS1401 Lab 7",
                                                   JOptionPane.INFORMATION_MESSAGE);
         System.out.printf("The user's wants to start the SayItOutLoud sequence from %s.\n", seed);
         int length = Integer.parseInt(JOptionPane.showInputDialog(frame, "How many numbers for you want to generate in the sequence?",
-                                                                  "CS1401 Lab 7",    
+                                                                  "CS1401 Lab 7",
                                                                   JOptionPane.INFORMATION_MESSAGE));
         System.out.printf("The user's wants to generate " + length + " elements in the SayItOutLoud sequence\n");
         
@@ -169,13 +231,13 @@ public class lab7Spring16 {
         
         /************ INTERACTION RELATED TO ACTIVITY 3 *************************************/
         
-        /*String filename = JOptionPane.showInputDialog(frame, "In which file is your data stored?",
-                                                      "CS1401 Lab 7",    
+        String filename = JOptionPane.showInputDialog(frame, "In which file is your data stored?",
+                                                      "CS1401 Lab 7",
                                                       JOptionPane.INFORMATION_MESSAGE);
         FileReader fr = new FileReader(filename);
         BufferedReader textReader = new BufferedReader(fr);
         // below is the code (given to you) that allows to read a text file like the one given to you as an example (square1.txt)
-        int size = Integer.parseInt(textReader.readLine()); 
+        int size = Integer.parseInt(textReader.readLine());
         int[][] square = new int[size][size];
         
         for (int i=0; i< size; i++) {
@@ -184,13 +246,18 @@ public class lab7Spring16 {
         
         // print what you just stored in a 2D array using the method printArray
         // your code goes here
-        
+        printArray(square);
         // here enter your code so that you print out where the data you read is a magic square or not
-        */
+        if(MagicSquare(square)){
+            System.out.println("Is a magic square");
+        }
+        else {
+            System.out.println("Is not a magic square");
+        }
         /************ END OF PROGRAM *********************************************************/
         // goes back to System.in and frees back the prompt command
         System.exit(0);
-     
+        
     }
     
 }
